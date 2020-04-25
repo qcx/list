@@ -71,10 +71,11 @@ class List {
       },
     ];
 
-    //
-    // Tool's data
-    // @type {ListData}
-    //
+    /**
+     * Tool's data
+     *
+     * @type {ListData}
+     */
     this._data = {
       style: this.settings.find(tune => tune.default === true).name,
       items: [],
