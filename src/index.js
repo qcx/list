@@ -100,18 +100,14 @@ class List {
 
     // fill with data
     if (this._data.items.length) {
-      this._data.items.forEach((item) => {
-        this._elements.wrapper.appendChild(this._make('li', this.CSS.item, {
-          innerHTML: item,
-        }));
-      });
+      this._elements.wrapper = this.createAllElm(this._data.items);    
     } else {
       this._elements.wrapper.appendChild(this._make('li', this.CSS.item));
     }
 
     // detect keydown on the last item to escape List
     this._elements.wrapper.addEventListener('keydown', (event) => {
-      const [ENTER, BACKSPACE] = [13, 8]; // key codes
+      const [ENTER, BACKSPACE, TAB] = [13, 8, 9]; // key codes
 
       switch (event.keyCode) {
         case ENTER:
@@ -119,6 +115,9 @@ class List {
           break;
         case BACKSPACE:
           this.backspace(event);
+          break;
+        case TAB:
+          this.addTab(event);
           break;
       }
     }, false);
@@ -252,6 +251,12 @@ class List {
   toggleTune(style) {
     this._elements.wrapper.classList.toggle(this.CSS.wrapperOrdered, style === 'ordered');
     this._elements.wrapper.classList.toggle(this.CSS.wrapperUnordered, style === 'unordered');
+    const items = this._elements.wrapper.querySelectorAll('ul');
+
+    for (let i = 0; i < items.length; i++) {
+      items[i].classList.toggle(this.CSS.wrapperOrdered, style === 'ordered');
+      items[i].classList.toggle(this.CSS.wrapperUnordered, style === 'unordered');
+    }
 
     this._data.style = style;
   }
@@ -302,15 +307,25 @@ class List {
   get data() {
     this._data.items = [];
 
-    const items = this._elements.wrapper.querySelectorAll(`.${this.CSS.item}`);
+    const itemsList = this._elements.wrapper.childNodes;
 
-    for (let i = 0; i < items.length; i++) {
-      const value = items[i].innerHTML.replace('<br>', ' ').trim();
-
-      if (value) {
-        this._data.items.push(items[i].innerHTML);
+    function getData(items){
+      var dataEach = [];
+      for (let i = 0; i < items.length; i++) {
+        const value = items[i].innerHTML.replace('<br>', ' ').trim();
+  
+        if (items[i].tagName == "UL") {
+          dataEach.push(getData(items[i].childNodes));
+        }
+        else if (value) {
+          dataEach.push(items[i].innerHTML);
+        }
       }
+
+      return dataEach;
     }
+
+    this._data.items = getData(itemsList);
 
     return this._data;
   }
@@ -337,6 +352,26 @@ class List {
     }
 
     return el;
+  }
+
+
+  createAllElm(lidata){
+    const style = this._data.style === 'ordered' ? this.CSS.wrapperOrdered : this.CSS.wrapperUnordered;
+    const ulElem = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
+      contentEditable: true,
+    });
+
+    lidata.forEach((item) => {
+
+      if(typeof(item) == "object"){
+        ulElem.appendChild(this.createAllElm(item))
+      }else{
+        ulElem.appendChild(this._make('li', this.CSS.item, {
+          innerHTML: item,
+        }));
+      } 
+    });
+    return ulElem;
   }
 
   /**
@@ -405,6 +440,33 @@ class List {
   }
 
   /**
+   * Indent the List Items
+   *
+   * @param {KeyboardEvent} event
+   */
+  addTab(event){
+
+    if (this.currentItem == this.currentItem.parentNode.childNodes[0]) {
+      return
+    }
+
+    const style = this._data.style === 'ordered' ? this.CSS.wrapperOrdered : this.CSS.wrapperUnordered;
+    var ol = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
+      contentEditable: true,
+    });
+    if (this.currentItem.nextSibling != null) {
+      this.currentItem.parentNode.insertBefore(ol, this.currentItem.nextSibling) 
+    }
+    else{
+      this.currentItem.parentNode.appendChild(ol)
+    }
+    ol.appendChild(this.currentItem)
+
+    event.preventDefault();
+    event.stopPropagation();
+  }
+
+  /**
    * Select LI content by CMD+A
    *
    * @param {KeyboardEvent} event
@@ -447,10 +509,12 @@ class List {
       items: [],
     };
 
+    console.log(tag, element);
+
     if (tag === 'LI') {
       data.items = [ element.innerHTML ];
     } else {
-      const items = Array.from(element.querySelectorAll('LI'));
+      const items = Array.from(element.childNodes);
 
       data.items = items
         .map((li) => li.innerHTML)

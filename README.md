@@ -1,10 +1,10 @@
-![](https://badgen.net/badge/Editor.js/v2.0/blue)
+![](https://badgen.net/badge/@Editorjs-list/v2.0/blue) [![](https://data.jsdelivr.com/v1/package/npm/@itech-indrustries/list/badge)](https://www.jsdelivr.com/package/npm/@itech-indrustries/list)
 
 # List Tool for Editor.js
 
 This Tool for the [Editor.js](https://editorjs.io) allows you to add ordered or unordered (bulleted) lists to your article.
 
-![](assets/example.gif)
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/55910733/89700109-3b5cd100-d949-11ea-9e54-8153fe6c7465.gif)
 
 ## Installation
 
@@ -13,16 +13,13 @@ This Tool for the [Editor.js](https://editorjs.io) allows you to add ordered or 
 Get the package
 
 ```shell
-npm i --save @editorjs/list
-```
-```shell
-yarn add @editorjs/list
+npm i @itech-indrustries/list
 ```
 
 Include module at your application
 
 ```javascript
-import List from '@editorjs/list';
+import List from '@itech-indrustries/list';
 ```
 
 ### Download to your project's source dir
@@ -32,10 +29,10 @@ import List from '@editorjs/list';
 
 ### Load from CDN
 
-Load the script from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/list) and connect to your page.
+Load the script from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@itech-indrustries/list) and connect to your page.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@itech-indrustries/list@latest"></script>
 ```
 
 ## Usage
@@ -44,7 +41,7 @@ Add the List Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
 import EditorJS from '@editorjs/editorjs';
-import List from '@editorjs/list';
+import List from '@itech-indrustries/list';
 
 var editor = EditorJS({
   // ...
@@ -82,9 +79,18 @@ You can choose list`s type.
     "data" : {
         "style" : "unordered",
         "items" : [
-            "This is a block-styled editor",
-            "Clean output data",
-            "Simple and powerful API"
+            "It is a block-styled editor",
+            [
+                "It returns clean data output in JSON",
+                [
+                    "Here comes the sub lists",
+                    "with both ordered and unordered",
+                    [
+                        "Just press tab and sub list will be created<br>"
+                    ]
+                ]
+            ],
+            "Designed to be extendable and pluggable with a simple API"
         ]
     }
 },
