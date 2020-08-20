@@ -1,4 +1,4 @@
-![](https://badgen.net/badge/@Editorjs-list/v2.0/blue) [![](https://data.jsdelivr.com/v1/package/npm/@itech-indrustries/list/badge)](https://www.jsdelivr.com/package/npm/@itech-indrustries/list)
+![](https://badgen.net/badge/Editor.js/v2.0/blue)
 
 # List Tool for Editor.js
 
@@ -13,13 +13,16 @@ This Tool for the [Editor.js](https://editorjs.io) allows you to add ordered or 
 Get the package
 
 ```shell
-npm i @itech-indrustries/list
+npm i --save @editorjs/list
+```
+```shell
+yarn add @editorjs/list
 ```
 
 Include module at your application
 
 ```javascript
-import List from '@itech-indrustries/list';
+import List from '@editorjs/list';
 ```
 
 ### Download to your project's source dir
@@ -29,10 +32,10 @@ import List from '@itech-indrustries/list';
 
 ### Load from CDN
 
-Load the script from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@itech-indrustries/list) and connect to your page.
+Load the script from [jsDelivr CDN](https://www.jsdelivr.com/package/npm/@editorjs/list) and connect to your page.
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@itech-indrustries/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
 ```
 
 ## Usage
@@ -41,7 +44,7 @@ Add the List Tool to the `tools` property of the Editor.js initial config.
 
 ```javascript
 import EditorJS from '@editorjs/editorjs';
-import List from '@itech-indrustries/list';
+import List from '@editorjs/list';
 
 var editor = EditorJS({
   // ...
