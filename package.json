@@ -1,5 +1,5 @@
 {
-  "name": "@itech-indrustries/list",
+  "name": "@editorjs/list",
   "version": "2.0.0",
   "keywords": [
     "codex editor",
@@ -10,15 +10,15 @@
   ],
   "description": "List Tool for Editor.js",
   "license": "MIT",
-  "repository": "https://github.com/itech-indrustries/list",
+  "repository": "https://github.com/editor-js/list",
   "main": "./dist/bundle.js",
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development --watch"
   },
   "author": {
-    "name": "Itech Indrustries",
-    "email": "review@itechindrustries.co"
+    "name": "CodeX",
+    "email": "team@codex.so"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
