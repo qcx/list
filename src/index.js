@@ -310,7 +310,7 @@ class List {
     const itemsList = this._elements.wrapper.childNodes;
 
     function getData(items){
-      var dataEach = [];
+      let dataEach = [];
       for (let i = 0; i < items.length; i++) {
         const value = items[i].innerHTML.replace('<br>', ' ').trim();
   
@@ -451,7 +451,7 @@ class List {
     }
 
     const style = this._data.style === 'ordered' ? this.CSS.wrapperOrdered : this.CSS.wrapperUnordered;
-    var ol = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
+    let ol = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
       contentEditable: true,
     });
     
