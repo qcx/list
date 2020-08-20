@@ -454,12 +454,13 @@ class List {
     var ol = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
       contentEditable: true,
     });
+    
     if (this.currentItem.nextSibling != null) {
       this.currentItem.parentNode.insertBefore(ol, this.currentItem.nextSibling) 
-    }
-    else{
+    } else {
       this.currentItem.parentNode.appendChild(ol)
     }
+    
     ol.appendChild(this.currentItem)
 
     event.preventDefault();
@@ -508,8 +509,6 @@ class List {
       style,
       items: [],
     };
-
-    console.log(tag, element);
 
     if (tag === 'LI') {
       data.items = [ element.innerHTML ];
