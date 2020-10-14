@@ -311,13 +311,13 @@ class List {
 
     function getData(items){
       let dataEach = [];
+      
       for (let i = 0; i < items.length; i++) {
         const value = items[i].innerHTML.replace('<br>', ' ').trim();
   
         if (items[i].tagName == "UL") {
           dataEach.push(getData(items[i].childNodes));
-        }
-        else if (value) {
+        } else if (value) {
           dataEach.push(items[i].innerHTML);
         }
       }
@@ -362,15 +362,15 @@ class List {
     });
 
     lidata.forEach((item) => {
-
-      if(typeof(item) == "object"){
+      if (typeof(item) === "object") {
         ulElem.appendChild(this.createAllElm(item))
-      }else{
+      } else {
         ulElem.appendChild(this._make('li', this.CSS.item, {
           innerHTML: item,
         }));
       } 
     });
+
     return ulElem;
   }
 
@@ -445,8 +445,7 @@ class List {
    * @param {KeyboardEvent} event
    */
   addTab(event){
-
-    if (this.currentItem == this.currentItem.parentNode.childNodes[0]) {
+    if (this.currentItem === this.currentItem.parentNode.childNodes[0]) {
       return
     }
 
