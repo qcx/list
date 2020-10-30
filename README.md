@@ -4,7 +4,7 @@
 
 This Tool for the [Editor.js](https://editorjs.io) allows you to add ordered or unordered (bulleted) lists to your article.
 
-![](assets/example.gif)
+![ezgif com-video-to-gif](https://user-images.githubusercontent.com/55910733/89700109-3b5cd100-d949-11ea-9e54-8153fe6c7465.gif)
 
 ## Installation
 
@@ -82,9 +82,18 @@ You can choose list`s type.
     "data" : {
         "style" : "unordered",
         "items" : [
-            "This is a block-styled editor",
-            "Clean output data",
-            "Simple and powerful API"
+            "It is a block-styled editor",
+            [
+                "It returns clean data output in JSON",
+                [
+                    "Here comes the sub lists",
+                    "with both ordered and unordered",
+                    [
+                        "Just press tab and sub list will be created<br>"
+                    ]
+                ]
+            ],
+            "Designed to be extendable and pluggable with a simple API"
         ]
     }
 },
