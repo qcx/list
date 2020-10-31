@@ -112,7 +112,7 @@ class List {
 
     // fill with data
     if (this._data.items.length) {
-      this._elements.wrapper = this.createAllElm(this._data.items);    
+      this._elements.wrapper = this.createAllElm(this._data.items);
     } else {
       this._elements.wrapper.appendChild(this._make('li', this.CSS.item));
     }
@@ -171,7 +171,7 @@ class List {
        */
       import: (string) => {
         return {
-          items: [ string ],
+          items: [string],
           style: 'unordered',
         };
       },
@@ -199,7 +199,7 @@ class List {
    * @returns {Element}
    */
   renderSettings() {
-    const wrapper = this._make('div', [ this.CSS.settingsWrapper ], {});
+    const wrapper = this._make('div', [this.CSS.settingsWrapper], {});
 
     this.settings.forEach((item) => {
       const itemEl = this._make('div', this.CSS.settingsButton, {
@@ -323,14 +323,14 @@ class List {
 
     const itemsList = this._elements.wrapper.childNodes;
 
-    function getData(items){
+    function getData(items) {
       let dataEach = [];
-      
+
       for (let i = 0; i < items.length; i++) {
         const value = items[i].innerHTML.replace('<br>', ' ').trim();
-  
+
         if (items[i].tagName == "UL") {
-          dataEach.push(getData(items[i].childNodes));
+          dataEach.push({ items: getData(items[i].childNodes) });
         } else if (value) {
           dataEach.push(items[i].innerHTML);
         }
@@ -369,20 +369,20 @@ class List {
   }
 
 
-  createAllElm(lidata){
+  createAllElm(lidata) {
     const style = this._data.style === 'ordered' ? this.CSS.wrapperOrdered : this.CSS.wrapperUnordered;
     const ulElem = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
       contentEditable: true,
     });
 
     lidata.forEach((item) => {
-      if (typeof(item) === "object") {
-        ulElem.appendChild(this.createAllElm(item))
+      if (typeof (item) === "object") {
+        ulElem.appendChild(this.createAllElm(item.items))
       } else {
         ulElem.appendChild(this._make('li', this.CSS.item, {
           innerHTML: item,
         }));
-      } 
+      }
     });
 
     return ulElem;
@@ -466,7 +466,7 @@ class List {
    */
   backspace(event) {
     const items = this._elements.wrapper.querySelectorAll('.' + this.CSS.item),
-        firstItem = items[0];
+      firstItem = items[0];
 
     if (!firstItem) {
       return;
@@ -485,7 +485,7 @@ class List {
    *
    * @param {KeyboardEvent} event
    */
-  addTab(event){
+  addTab(event) {
     if (this.currentItem === this.currentItem.parentNode.childNodes[0]) {
       return
     }
@@ -494,13 +494,13 @@ class List {
     let ol = this._make('ul', [this.CSS.baseBlock, this.CSS.wrapper, style], {
       contentEditable: true,
     });
-    
+
     if (this.currentItem.nextSibling != null) {
-      this.currentItem.parentNode.insertBefore(ol, this.currentItem.nextSibling) 
+      this.currentItem.parentNode.insertBefore(ol, this.currentItem.nextSibling)
     } else {
       this.currentItem.parentNode.appendChild(ol)
     }
-    
+
     ol.appendChild(this.currentItem)
 
     event.preventDefault();
@@ -516,9 +516,9 @@ class List {
     event.preventDefault();
 
     const selection = window.getSelection(),
-        currentNode = selection.anchorNode.parentNode,
-        currentItem = currentNode.closest('.' + this.CSS.item),
-        range = new Range();
+      currentNode = selection.anchorNode.parentNode,
+      currentItem = currentNode.closest('.' + this.CSS.item),
+      range = new Range();
 
     range.selectNodeContents(currentItem);
 
@@ -551,7 +551,7 @@ class List {
     };
 
     if (tag === 'LI') {
-      data.items = [ element.innerHTML ];
+      data.items = [element.innerHTML];
     } else {
       const items = Array.from(element.childNodes);
 
